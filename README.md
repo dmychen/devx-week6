@@ -1,205 +1,22 @@
-# Code Snippets
+# Workshop 6 (Week 9)
 
-## Run the frontend
-```html
-cd react
-npm install
-npm start
-```
+## Getting Started
 
-## Run the backend
-```html
-cd express
-npm install
-npm start
-```
+This contains the code for this week's workshop, which is just a completed copy of [Week 5](https://github.com/cruizeship/devx-week5)'s code.
 
-## UI setup (App.js)
-```html
-<div className="response-box">Response here</div>
-<div className="request-box">
-  <button>Simple Get</button>
-</div>
-```
+Make sure you have Git installed on your computer.
 
-```html
-.response-box {
-  width: 400px;
-  background-color: white;
-  height: 100px;
-  color: black;
-  margin-bottom: 10px;
-}
-```
+> You can run `git --version` to check if it is installed.
+> If you have a Windows computer, you may need to download it [here](https://git-scm.com/downloads/win).
 
-```html
-.request-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-}
-```
+Create a Github account if you don't have one, and download [Github Desktop](https://desktop.github.com/download/).
 
-## Conecting React to Express API
-```html
-import axios from 'axios';
-```
-```html
-const handleSimpleGet = async () => {
-  try {
-    const res = await axios.get('http://localhost:5001/v1/simple-get');
-  } catch (error) {
-    
-  }
-};
-```
 
-## Making simple-get responsive
-```html
-const [response, setResponse] = useState('')
-```
-```html
-const handleSimpleGet = async () => {
-  try {
-    const res = await axios.get('http://localhost:5001/v1/simple-get');
-    setResponse(res.data);
-  } catch (error) {
-    setResponse('Error in Simple Get: ' + error);
-  }
-};
-```
-```html
-<div className="response-box">{response}</div>
-```
-```html
-<button onClick={handleSimpleGet}>Simple Get</button>
-```
+## Resources
 
-## Implementing dynamic-get
-```html
-const [text, setText] = useState('')
-```
-```html
-const handleDynamicGet = async () => {
-  try {
-    const res = await axios.get('http://localhost:5001/v1/dynamic-get/' + text);
-    setResponse(res.data);
-  } catch (error) {
-    setResponse('Error in Dynamic Get: ' + error);
-  }
-};
-```
-```html
-<div className="request-box">
-  <input type="text" value={text} onChange={(e) => handleChange(e, "text")} placeholder="text" />
-  <button onClick={handleDynamicGet}>Dynamic Get</button>
-</div>
-```
-```html
-function handleChange(e, target){
-  if (target == "text") {
-    setText(e.target.value)
-  }
-}
-```
+- [Week 6 Slides](https://docs.google.com/presentation/d/1LNPyD2AP4cg4DHlInmvBMYwRBlWt7MeGgXtKohF4WeE/edit?usp=sharing)
 
-## Implementing pokemon
-```html
-const [pokemon, setPokemon] = useState('')
-```
-```html
-const handlePokemonGet = async () => {
-  try {
-    const res = await axios.get('http://localhost:5001/v1/pokemon/' + pokemon);
-    const { name, id, height, weight } = res.data;
-    setResponse('Name: ' + name + ' ID: ' + id + ' Height: ' + height + ' Weight: ' + weight);
-  } catch (error) {
-    setResponse('Error fetching Pokemon: ' + error);
-  }
-};
-```
-```html
-<div className="request-box">
-  <input type="text" value={pokemon} onChange={(e) => handleChange(e, "pokemon")} placeholder="pokemon" />
-  <button onClick={handlePokemonGet}>Pokemon</button>
-</div>
-```
-```html
-function handleChange(e, target){
-  if (target == "text") {
-    setText(e.target.value)
-  } else if (target == "pokemon") {
-    setPokemon(e.target.value)
-  }
-}
-```
 
-## Implementing add-user
-```html
-const [name, setName] = useState('')
-```
-```html
-const handleAddUser = async () => {
-    try {
-      const res = await axios.post('http://localhost:5001/v1/users', { name });
-      setResponse(JSON.stringify(res.data));
-    } catch (error) {
-      console.error('Error adding user:', error);
-      setResponse('Error adding user');
-    }
-};
-```
-```html
-<div className="request-box">
-  <input type="text" value={name} onChange={(e) => handleChange(e, "name")} placeholder="name" />
-  <button onClick={handleAddUser}>Add User</button>
-</div>
-```
-```html
-function handleChange(e, target){
-  if (target == "text") {
-    setText(e.target.value)
-  } else if (target == "pokemon") {
-    setPokemon(e.target.value)
-  } else if (target == "name") {
-    setName(e.target.value)
-  }
-}
-```
+## Instructions
 
-## Implementing get-users
-```html
-const [name2, setName2] = useState('')
-```
-```html
-const handleGetUsers = async () => {
-    try {
-      const res = await axios.get("http://localhost:5001/v1/users/" + name2);
-      setResponse(JSON.stringify(res.data));
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      setResponse('Error fetching users');
-    }
-};
-```
-```html
-<div className="request-box">
-  <input type="text" value={name2} onChange={(e) => handleChange(e, "name2")} placeholder="name2" />
-  <button onClick={handleGetUsers}>Get Users</button>
-</div>
-```
-```html
-function handleChange(e, target){
-  if (target == "text") {
-    setText(e.target.value)
-  } else if (target == "pokemon") {
-    setPokemon(e.target.value)
-  } else if (target == "name") {
-    setName(e.target.value)
-  } else if (target == "name2") {
-    setName2(e.target.value)
-  }
-}
-```
+1. Open Github Desktop, and select "Add Existing Repository". Use this directory as the source.

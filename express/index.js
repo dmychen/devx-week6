@@ -5,13 +5,11 @@ const { MongoClient, ServerApiVersion } = require('mongodb'); // MongoClient let
 const cors = require('cors');
 
 /* INITIALIZE DATABASE */
-const password = "devx-test"
-const clusterName = "devx-test"
-const uri = "mongodb+srv://andrewcruz3:" + password + "@devx-test.x8yci.mongodb.net/?retryWrites=true&w=majority&appName=" + clusterName; // how we identify our database
-const DB_NAME = "devx-w25";
+const URI = "mongodb+srv://daniel:week6@week6-cluster.wypbi.mongodb.net/?retryWrites=true&w=majority&appName=week6-cluster"; // how we identify our database
+const DB = "week6-cluster";
 const CONNECTION_TIMEOUT = 5000;
 
-const client = new MongoClient(uri, {
+const client = new MongoClient(URI, {
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,
@@ -22,16 +20,15 @@ const client = new MongoClient(uri, {
 async function connectToDatabase() {
     try {
         console.log("Connecting to MongoDB...");
-
         const connectPromise = client.connect(); // Create promise for connection
         const timeoutPromise = new Promise((_, reject) =>
         setTimeout(() => reject(new Error('MongoDB connection timeout')), CONNECTION_TIMEOUT));
         await Promise.race([connectPromise, timeoutPromise]);
 
-        await client.db(DB_NAME).command({ ping: 1 });
+        await client.db(DB).command({ ping: 1 });
         console.log("Successfully connected!");
     } catch (error) {
-        console.error("Database connection failed.");
+        console.error("Database connection failed:", error);
         process.exit(1);
     }
 }
@@ -55,7 +52,7 @@ app.listen(port, () => {
 /* ACCESS DATABASE */
 async function insertUser (newUser) {
     try {
-        const usersCollection = client.db(DB_NAME).collection("users");
+        const usersCollection = client.db(DB).collection("users");
         const result = await usersCollection.insertOne(newUser);
 
         return await usersCollection.findOne({ _id: result.insertedId });
@@ -67,13 +64,13 @@ async function insertUser (newUser) {
 
 async function getAllUsers () {
     // get user collection and find all users
-    const usersCollection = client.db(DB_NAME).collection("users");
+    const usersCollection = client.db(DB).collection("users");
     return await usersCollection.find().toArray();
 };
 
 async function getUser (name) {
     // get user collection and find users that match name
-    const usersCollection = client.db(DB_NAME).collection("users");
+    const usersCollection = client.db(DB).collection("users");
     return await usersCollection.find({ name: name }).toArray();
 };
 
