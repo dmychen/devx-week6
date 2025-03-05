@@ -20,3 +20,7 @@ Create a Github account if you don't have one, and download [Github Desktop](htt
 ## Instructions
 
 1. Open Github Desktop, and select "Add Existing Repository". Use this directory as the source.
+
+2. Make some changes, stage and commit it.
+
+3. Checkout the old commit. 
